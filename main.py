@@ -3,12 +3,13 @@ from os import listdir
 from os.path import isfile
 from os.path import join as joinpath
 from time import sleep
+import pathlib
 
 import telegram
 from dotenv import load_dotenv
 
-from fetch_nasa import get_epic_pics
-from fetch_spacex import fetch_spacex_last_launch
+from fetch_nasa import get_epic_pics, get_apod_pics
+from fetch_spacex import fetch_spacex_launch
 
 
 def main():
@@ -16,16 +17,22 @@ def main():
     token_nasa = os.getenv('NASA_TOKEN')
     token_tg = os.getenv('TG_BOT_TOKEN')
     bot = telegram.Bot(token=token_tg)
-    fetch_spacex_last_launch(url='https://api.spacexdata.com/v3/launches/67')
-    get_epic_pics(token_nasa, url='https://api.nasa.gov/EPIC/api/natural')
+    path = 'files'
+    pathlib.Path(path).mkdir(exist_ok=True)
+    fetch_spacex_launch(path, '67')
+    get_apod_pics(path, token_nasa)
+    get_epic_pics(path, token_nasa, '2021-10-03')
+
+
     while True:
-        sleep(10)
         bot.send_message(chat_id='@annfike_tg', text='Hi')
-        mypath = 'files'
-        for files in listdir(mypath):
-            filename = joinpath(mypath, files)
-            if isfile(joinpath(mypath, files)):
-                bot.send_document(chat_id='@annfike_tg', document=open(filename, 'rb'))
+        for files in listdir(path):
+            filename = joinpath(path, files)
+            if isfile(filename):
+                with open(filename, "rb") as file:
+                    f = file.read()
+                bot.send_document(chat_id='@annfike_tg', document=f)
+        sleep(86400)
 
 
 if __name__ == '__main__':
