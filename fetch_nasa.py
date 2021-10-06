@@ -1,5 +1,14 @@
 import requests
 from load_image import load_image
+from urllib.parse import urlsplit
+from os.path import splitext
+
+
+def get_extension(url):
+    parsed = urlsplit(url)
+    path = parsed.path
+    ext = splitext(path)[1]
+    return ext
 
 
 def get_apod_pics(path, token):
@@ -9,7 +18,8 @@ def get_apod_pics(path, token):
     response.raise_for_status()
     response = response.json()
     for index, pic in enumerate(response, start=1):
-        filename = f'nasa{index}.jpg'
+        ext = get_extension(pic['url'])
+        filename = f'nasa{index}{ext}'
         load_image(path, filename, pic['url'])
 
 
