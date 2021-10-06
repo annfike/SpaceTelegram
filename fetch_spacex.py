@@ -1,14 +1,5 @@
-from pathlib import Path
 import requests
-
-
-def load_image(path, filename, url, params = None):
-    path = Path(path)
-    filepath = path / filename
-    response = requests.get(url, params=params)
-    response.raise_for_status()
-    with filepath.open('wb') as file:
-        file.write(response.content)
+from load_image import load_image
 
 
 def fetch_spacex_launch(path, launch):
