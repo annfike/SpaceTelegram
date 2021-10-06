@@ -33,7 +33,7 @@ def main():
                 with open(filename, "rb") as file:
                     f = file.read()
                 bot.send_document(chat_id=channel, document=f)
-        sleep(86400)
+            sleep(86400)
 
 
 if __name__ == '__main__':
