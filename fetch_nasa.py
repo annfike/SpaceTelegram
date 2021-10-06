@@ -1,5 +1,5 @@
 import requests
-from fetch_spacex import load_image
+from load_image import load_image
 
 
 def get_apod_pics(path, token):
