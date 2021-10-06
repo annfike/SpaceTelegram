@@ -15,11 +15,11 @@ def get_apod_pics(path, token):
 
 def get_epic_pics(path, token_nasa, date):
     payload = {'api_key': token_nasa}
-    response = requests.get(f"https://api.nasa.gov/EPIC/api/natural/date/{date}",
+    response = requests.get(f'https://api.nasa.gov/EPIC/api/natural/date/{date}',
                params=payload)
     response.raise_for_status()
     response = response.json()
-    year, month, day = date.split("-")
+    year, month, day = date.split('-')
     for index, pic in enumerate(response, start=1):
         image = pic['image']
         filename = f'earth{index}.jpg'
