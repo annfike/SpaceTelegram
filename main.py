@@ -30,7 +30,7 @@ def main():
         for files in listdir(path):
             filename = joinpath(path, files)
             if isfile(filename):
-                with open(filename, "rb") as file:
+                with open(filename, 'rb') as file:
                     f = file.read()
                 bot.send_document(chat_id=channel, document=f)
             sleep(86400)
