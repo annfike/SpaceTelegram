@@ -22,8 +22,8 @@ def get_epic_pics(path, token_nasa, date):
     for index, pic in enumerate(response, start=1):
         image = pic['image']
         filename = f'earth{index}.jpg'
-        link = requests.get(f'https://api.nasa.gov/EPIC/archive/natural/{year}/{month}/{day}/png/{image}.png', params=payload)
-        load_image(path, filename, link)
+        link = f'https://api.nasa.gov/EPIC/archive/natural/{year}/{month}/{day}/png/{image}.png'
+        load_image(path, filename, link, params=payload)
 
 
 
