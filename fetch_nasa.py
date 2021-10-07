@@ -1,8 +1,10 @@
-import requests
 import os
-from load_image import load_image
-from urllib.parse import urlparse, unquote
 from os.path import splitext
+from urllib.parse import unquote, urlparse
+
+import requests
+
+from load_image import load_image
 
 
 def get_extension(url):
@@ -14,7 +16,7 @@ def get_extension(url):
     return ext
 
 
-def get_apod_pics(path, token):
+def fetch_apod_pics(path, token):
     url = 'https://api.nasa.gov/planetary/apod'
     payload = {'count': '10', 'api_key': token}
     response = requests.get(url, params=payload)
@@ -26,7 +28,7 @@ def get_apod_pics(path, token):
         load_image(path, filename, pic['url'])
 
 
-def get_epic_pics(path, token_nasa, date):
+def fetch_epic_pics(path, token_nasa, date):
     payload = {'api_key': token_nasa}
     response = requests.get(f'https://api.nasa.gov/EPIC/api/natural/date/{date}',
                params=payload)
