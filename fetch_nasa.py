@@ -1,13 +1,16 @@
 import requests
+import os
 from load_image import load_image
-from urllib.parse import urlsplit
+from urllib.parse import urlparse, unquote
 from os.path import splitext
 
 
 def get_extension(url):
-    parsed = urlsplit(url)
-    path = parsed.path
-    ext = splitext(path)[1]
+    unquoted = unquote(url)
+    parsed = urlparse(unquoted)
+    splited_path = os.path.split(parsed.path)
+    filename = splited_path[-1]
+    ext = splitext(filename)[1]
     return ext
 
 
