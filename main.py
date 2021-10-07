@@ -16,7 +16,7 @@ def main():
     load_dotenv()
     token_nasa = os.getenv('NASA_TOKEN')
     token_tg = os.getenv('TG_BOT_TOKEN')
-    channel = os.getenv('TG_CHANNEL')
+    channel_tg = os.getenv('TG_CHANNEL')
     bot = telegram.Bot(token=token_tg)
     path = 'files'
     pathlib.Path(path).mkdir(exist_ok=True)
@@ -26,13 +26,13 @@ def main():
 
 
     while True:
-        bot.send_message(chat_id=channel, text='Hi')
+        bot.send_message(chat_id=channel_tg, text='Hi')
         for files in listdir(path):
             filename = joinpath(path, files)
             if isfile(filename):
                 with open(filename, 'rb') as file:
                     f = file.read()
-                bot.send_document(chat_id=channel, document=f)
+                bot.send_document(chat_id=channel_tg, document=f)
             sleep(86400)
 
 
