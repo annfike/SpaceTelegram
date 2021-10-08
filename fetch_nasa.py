@@ -1,4 +1,3 @@
-import os
 from os.path import splitext
 from urllib.parse import unquote, urlparse
 
@@ -28,8 +27,9 @@ def fetch_apod_pics(path, token):
 
 def fetch_epic_pics(path, token_nasa, date):
     payload = {'api_key': token_nasa}
-    response = requests.get(f'https://api.nasa.gov/EPIC/api/natural/date/{date}',
-               params=payload)
+    response = requests.get(
+        f'https://api.nasa.gov/EPIC/api/natural/date/{date}', params=payload
+    )
     response.raise_for_status()
     response = response.json()
     year, month, day = date.split('-')
