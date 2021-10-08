@@ -10,9 +10,7 @@ from load_image import load_image
 def get_extension(url):
     unquoted = unquote(url)
     parsed = urlparse(unquoted)
-    splited_path = os.path.split(parsed.path)
-    filename = splited_path[-1]
-    ext = splitext(filename)[1]
+    _, ext = splitext(parsed.path)
     return ext
 
 
