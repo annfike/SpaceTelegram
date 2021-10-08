@@ -13,9 +13,9 @@ def get_extension(url):
     return ext
 
 
-def fetch_apod_pics(path, token):
+def fetch_apod_pics(path, nasa_token):
     url = 'https://api.nasa.gov/planetary/apod'
-    payload = {'count': '10', 'api_key': token}
+    payload = {'count': '10', 'api_key': nasa_token}
     response = requests.get(url, params=payload)
     response.raise_for_status()
     response = response.json()
@@ -25,8 +25,8 @@ def fetch_apod_pics(path, token):
         load_image(path, filename, pic['url'])
 
 
-def fetch_epic_pics(path, token_nasa, date):
-    payload = {'api_key': token_nasa}
+def fetch_epic_pics(path, nasa_token, date):
+    payload = {'api_key': nasa_token}
     response = requests.get(
         f'https://api.nasa.gov/EPIC/api/natural/date/{date}', params=payload
     )
