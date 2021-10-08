@@ -38,7 +38,6 @@ def main():
         send_pics_tg(tg_token, tg_channel, path)
 
 
-
 if __name__ == '__main__':
     main()
 
